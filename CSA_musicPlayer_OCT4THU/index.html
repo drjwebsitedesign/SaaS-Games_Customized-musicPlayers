@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	
+	<title>CSA: Music Player App</title> 
+	
+	
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/regular.css" integrity="sha384-ZlNfXjxAqKFWCwMwQFGhmMh3i89dWDnaFU2/VZg9CvsMGA7hXHQsPIqS+JIAmgEq" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/brands.css" integrity="sha384-rf1bqOAj3+pw6NqYrtaE1/4Se2NBwkIfeYbsFdtiR6TQz0acWiwJbv1IM/Nt/ite" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
+	
+    
+    <title>CSA: Music Player App</title>
+	
+			<!-- Your CSS3 STYLESHEET FILES Go Here -->
+<style>
+			/* Your CSS3 STYLESHEET FILES Go Here */
+body{
+    
+	background: url("music-player-logo.png");
+	opacity: .92;
+	backgro radial-gradient(#9696e4, #4545ee) 
+	font-size: 1.2em;
+	width: 40%;
+	margin: 20px auto;
+	padding: 20px;
+	text-align: center;
+	min-height: 50vh;
+	color: tan;
+}
+    
+.header{
+    margin-top: -50px;
+    widt 60%;
+}    
+
+p{
+    font-size: 18px;
+    font-family: arial;
+    }
+
+a{
+    text-decoration-line: none;
+    }
+    
+#songList{
+	background: tan;
+    border: 3px dashed brown;
+	border-radius: 10px;
+	text-align: left;
+	color: brown;
+    font-size: 1.25em;
+}
+
+li{
+	padding: 5px;
+}
+
+li:hover, svg:hover{
+	cursor: pointer;
+}
+
+#controls{
+	border: 3px brown dashed;
+	border-radius: 10px;
+	background: tan;
+	padding: 1em;
+	text-align: center;
+	color: brown;
+}
+
+svg{
+	color: lightslategray;
+}
+
+progress{
+	width: 80%;
+	margin: 10px;
+    border: 3px dashed brown;
+    border-radius: 10px;
+}
+</style>
+</head>
+    
+
+<body>
+        <main>
+            <section class="header">
+			<h1>Music to Work by while Chillin'</h1>
+                <p>Customized SaaS Apps by: <span style="font-weight:800">DR J website DESIGN</span></p>
+                <p>A Name You Can Trust!  <a style="color:dodgerblue" href="http://drjwebsitedesign.com/">Learn More</a></p>
+			
+							<!-- 
+							THE SAME AUDIO KEEPS LOOPING CONTINOUSLY: W3SCHOOLS
+							<!DOCTYPE html>
+							<html>
+							<body>
+
+							<audio controls loop>
+							  <source src="horse.ogg" type="audio/ogg">
+							  <source src="horse.mp3" type="audio/mpeg">
+							Your browser does not support the audio element.
+							</audio>
+
+							<p><strong>Note:</strong> The audio tag is not supported in Internet Explorer 8 and earlier versions.</p>
+
+							</body>
+							</html>
+							-->
+			<!-- Your HTML5 SEMANTIC FILES Go Here -->
+            </section>  
+                
+			
+		<audio id="player" ontimeupdate='updateProgress()'>	
+			<source id="source" />
+			<!-- 
+			<audio id="player" controls="controls">
+			<source id="source" src="songs/bensound-thejazzpiano.mp3" /> 
+			-->
+			PLEASE CHECK YOUR DEVICE TO DETERMINE THE REASON WHY THIS AUDIO IS NOT SUPPORTED ON YOUR OPERATING SYSTEM! AFTERWARDS, COME BACK AND ENJOY OUR SaaS PERSONAL MUSIC PLAYER LIKE MILLIONS OF OTHERS ARE DOING AROUND THE WORLD. THANKS!
+		</audio>
+		
+		<span id="currentlyPlayingSong"></span> <em><span id="currentSong"></span></em>
+		
+		<progress id='progress' value='0' max='100'></progress>
+		
+		<div id="controls">		
+			<i class="fas fa-volume-down"></i>
+			<input type="range" id="volumeSlider" min="0" max="1" step="0.01" />
+			<i class="fas fa-volume-up"></i>
+			<i class="fas fa-play-circle fa-3x" onclick="playAudio()"></i>
+			<i class="fas fa-pause-circle fa-3x" onclick="pauseAudio()"></i>
+		</div>
+			
+					
+            <h2>DR J <em>'easyWorkDays'</em> musicPlayers</h2>
+            <p><em>relaxing music makes your work days easier!</em><br/>Let Us Customize Your App</p>
+            <p>Music: <a style="color:dodgerblue" href="https://www.bensound.com">https://www.bensound.com</a></p>
+            <br />
+		<div id="songList"></div>
+			<!-- Your JAVASCRIPT ES6 FUNCTIONALITY FILES Go Here -->
+			<!-- <script src="script.js"></script> -->          
+    </main>
+            
+            
+	<script>
+		const songs = 
+		["bensound-thejazzpiano.mp3", 
+		"bensound-theelevatorbossanova.mp3", 
+		"bensound-allthat.mp3",
+		"bensound-hipjazz.mp3", 
+		"bensound-love.mp3", 
+		"bensound-jazzcomedy.mp3", 
+		"bensound-romantic.mp3"]
+		
+		
+		const createSongList = () => {
+			const list = document.createElement('ol')
+			
+			for(let i=0; i < songs.length; i++){
+			const item = document.createElement('li')
+			item.appendChild(document.createTextNode(songs[i]))
+			
+			list.appendChild(item)
+		  }
+		return list
+		}
+		
+		document.getElementById('songList').appendChild(createSongList())
+		
+		songList.onclick = (e) => {
+			//console.log(e)
+			const clickedItem = e.target
+			const source = document.getElementById('source')
+			source.src = 'songs/' + clickedItem.innerText
+			//console.log(clickedItem.innerText)
+			
+			document.getElementById('currentlyPlayingSong').innerText = 'Currently Playing: ' 
+			document.getElementById('currentSong').innerText = clickedItem.innerText
+			
+			player.load()
+			player.play()			
+		}
+		
+		const playAudio = () => {
+			if(player.readyState) {
+				player.play()
+			}
+		}
+		
+		const pauseAudio = () => {
+			player.pause()
+		}
+		
+		const slider = document.getElementById('volumeSlider')
+			slider.oninput = (e) => {
+				//console.log(e)
+				const volume = e.target.value
+				//console.log(volume)
+				player.volume = volume
+			}
+		
+			const updateProgress = () => {
+			if(player.currentTime > 0) {
+				const progressBar = document.getElementById('progress')
+				progressBar.value = (player.currentTime / player.duration) * 100
+			  }				
+			}
+			
+			/*
+			const updateProgress = () => {
+				const progressBar = document.getElementById('progress')
+				//console.log(progressBar.value + 'progressBar value')
+				//console.log(player.currentTime + 'currentTime')
+				//console.log(player.duration + 'duration')			
+				progressBar.value = (player.currentTime / player.duration) * 100
+			}
+			*/
+	</script>
+	
+</body>
+</html>
+
+
+
+
+
+
+
